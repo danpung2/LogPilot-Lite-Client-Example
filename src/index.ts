@@ -3,18 +3,18 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const client = new LogPilotClient({
-  serverUrl: process.env.LOGPILOT_SERVER_URL || "localhost:50051",
-});
+const client = new LogPilotClient(process.env.LOGPILOT_SERVER_URL || "localhost:50051");
 
 function simulateTokenCleanup() {
   console.log("⏱️ Job started: cleaning expired refresh tokens...");
 
   const success = Math.random() > 0.5;
 
+  const datetime = new Date();
+
   if (!success) {
-    console.error("❌ Job failed. Logging error...");
-    client.sendLog({
+    console.error(`[${datetime.toISOString()}] ❌ Job failed. Logging error...`);
+    client.send({
       channel: process.env.LOGPILOT_CHANNEL || "refresh-token-job",
       level: "ERROR",
       message: "Failed to clean expired refresh tokens",
@@ -25,7 +25,7 @@ function simulateTokenCleanup() {
       storage: "sqlite",
     });
   } else {
-    console.log("✅ Job succeeded.");
+    console.log(`[${datetime.toISOString()}] ✅ Job succeeded.`);
   }
 }
 

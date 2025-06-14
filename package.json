@@ -1,0 +1,18 @@
+{
+	"name": "logpilot-lite-client-example",
+	"version": "1.0.0",
+	"description": "Example app for LogPilot-Lite client using token cleanup",
+	"main": "src/index.ts",
+	"scripts": {
+		"start": "ts-node src/index.ts"
+	},
+	"dependencies": {
+		"dotenv": "^16.5.0",
+		"logpilot-lite-client": "git+https://github.com/danpung2/LogPilot-Lite.git#main:logpilot-lite-client"
+	},
+	"devDependencies": {
+		"ts-node": "^10.9.2",
+		"typescript": "^5.0.0"
+	},
+	"license": "ISC"
+}

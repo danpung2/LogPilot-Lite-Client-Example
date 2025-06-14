@@ -7,12 +7,10 @@ if (!token) {
   process.exit(1);
 }
 
-const repo = 'danpung2/LogPilot-Lite';
-const path = 'logpilot-lite-client';
-const branch = 'main';
-const url = `https://${token}@github.com/${repo}.git#${branch}:${path}`;
+const repo = 'danpung2/LogPilot-Lite-Client';
+const url = `https://${token}@github.com/${repo}.git`;
 
-console.log(`📦 Installing ${repo}/${path}...`);
+console.log(`📦 Installing ${repo} url: ${url}...`);
 
 try {
   execSync(`npm install git+${url}`, { stdio: 'inherit' });

@@ -3,7 +3,7 @@
 이 프로젝트는 **LogPilot-Lite**를 사용하는 예제 앱입니다.  
 주기적으로 실행되는 백그라운드 작업(만료된 리프레시 토큰 정리)을 시뮬레이션하며,  
 작업이 50% 확률로 실패할 경우, 그 오류를 LogPilot-Lite에 로그로 전송합니다.  
-로그 전송은 공식 gRPC 클라이언트를 통해 이루어집니다.
+모니터링 시뮬레이션은 LogPilot-Lite에 저장된 로그를 주기적으로 읽습니다.
 
 ---
 
@@ -11,10 +11,10 @@
 
 ```
 LogPilot-Lite-Client-Example/
-├── install-client.js      # GitHub Private Repo에서 LogPilot-Lite Client 설치
 ├── src/
-│   └── index.ts           # Example App Main Code
-├── .env                   # 환경 변수 파일 (서버 주소 등)
+│   └── producer-example.ts           # Example Producer Code
+│   └── consumer-example.ts           # Example Consumer Code
+├── .env                              # Config
 ├── package.json
 └── README.md
 ```
@@ -26,21 +26,18 @@ LogPilot-Lite-Client-Example/
 Create a `.env` file in the root directory:
 
 ```env
-GITHUB_TOKEN=ghp_abc123yourtoken
-LOGPILOT_GRPC_URL=localhost:50051
+LOGPILOT_SERVER_URL=localhost:50051
+LOGPILOT_CHANNEL=my-job
 ```
-
-> The `GITHUB_TOKEN` must have at least **read access** to the LogPilot-Lite private repository.
 
 ---
 
 ## 📥 Install Dependencies
 
-Install the LogPilot-Lite gRPC client and other dependencies:
+Install the LogPilot-Lite client:
 
 ```bash
-node install-client.js
-npm install
+npm install "git+https://github.com/danpung2/LogPilot-Lite-Client.git"
 ```
 
 ---
@@ -50,7 +47,11 @@ npm install
 Start the simulation:
 
 ```bash
-npx tsx src/index.ts
+// producer - run my job
+npx tsx src/producer-example.ts
+
+// consumer - monitoring my job
+npx tsx src/consumer-example.ts
 ```
 
 This will:
@@ -59,20 +60,34 @@ This will:
 - Randomly fail 50% of the time.
 - Send log entries to LogPilot-Lite if the task fails.
 
+- Simulate a monitoring that token cleanup job every 7 seconds.
+
 ---
 
 ## 🔍 Log Example Sent to LogPilot-Lite
 
 ```json
 {
-  "channel": "token-cleanup",
+  "channel": "my-job",
   "level": "ERROR",
   "message": "Token cleanup job failed",
   "meta": {
-    "jobId": "cleanup-12345",
-    "error": "Simulated failure"
+    "attemptId": "ku3b14wtevl",
+    "reason": "Database timeout"
   },
   "storage": "sqlite"
+}
+```
+
+## 🔍 Log Example Received from LogPilot-Lite
+
+```json
+{
+  "channel": "my-job",
+  "level": "ERROR",
+  "message": "Token cleanup job failed",
+  "meta": { "attemptId": "ku3b14wtevl", "reason": "Database timeout" },
+  "timestamp": 1750260125846
 }
 ```
 

@@ -91,4 +91,8 @@ This will:
 }
 ```
 
-> See full documentation for `LogPilotClient` in the LogPilot-Lite main repository.
+> See full documentation for `LogPilot-Lite` in the LogPilot-Lite main repository.
+
+👉 [LogPilot-Lite](https://github.com/danpung2/LogPilot-Lite)
+
+👉 [LogPilot-Lite-Client](https://github.com/danpung2/LogPilot-Lite-Client)

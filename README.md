@@ -1,9 +1,9 @@
 # 🚀 LogPilot-Lite Example App
 
-이 프로젝트는 **LogPilot-Lite**를 사용하는 예제 앱입니다.  
-주기적으로 실행되는 백그라운드 작업(만료된 리프레시 토큰 정리)을 시뮬레이션하며,  
-작업이 50% 확률로 실패할 경우, 그 오류를 LogPilot-Lite에 로그로 전송합니다.  
-모니터링 시뮬레이션은 LogPilot-Lite에 저장된 로그를 주기적으로 읽습니다.
+This project is a sample application that demonstrates how to use LogPilot-Lite.
+It simulates a background task (cleaning up expired refresh tokens) that runs periodically.
+If the task fails (with a 50% chance), the error is sent to LogPilot-Lite as a log entry.
+The monitoring simulation periodically reads logs stored in LogPilot-Lite.
 
 ---
 

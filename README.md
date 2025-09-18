@@ -37,7 +37,7 @@ LOGPILOT_CHANNEL=my-job
 Install the LogPilot-Lite client:
 
 ```bash
-npm install "git+https://github.com/danpung2/LogPilot-Lite-Client.git"
+npm install logpilot-lite-client
 ```
 
 ---
